@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Ragavi V A — Portfolio</title>
+
+  <!-- Google font & icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@3.3.0/fonts/remixicon.css" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg: #f6f8fb;
+      --card: #ffffff;
+      --muted: #6b7280;
+      --text: #0b1220;
+      --accent: #00b4d8;      /* teal */
+      --accent-2: #8b5cf6;    /* purple */
+      --gold: #f59e0b;        /* gold border accent */
+      --border: rgba(11,18,35,0.08);
+      --glass: rgba(255,255,255,0.6);
+    }
+    .dark {
+      --bg: #071228;
+      --card: #071a2b;
+      --muted: #9aa6b2;
+      --text: #e6f0f6;
+      --accent: #00d4ff;
+      --accent-2: #b58cff;
+      --gold: #fbbf24;
+      --border: rgba(255,255,255,0.06);
+      --glass: rgba(255,255,255,0.03);
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:'Poppins',system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;
+      background: linear-gradient(180deg,var(--bg), rgba(0,0,0,0));
+      color:var(--text);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.5;
+    }
+
+    /* ---------- layout ---------- */
+    header.navbar{
+      position:fixed;
+      top:0;left:0;right:0;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      padding:14px 24px;
+      background: linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.02));
+      border-bottom: 1px solid var(--border);
+      z-index:1000;
+      backdrop-filter: blur(6px);
+    }
+    .brand{display:flex;align-items:center;gap:12px}
+    .logo {
+      width:44px;height:44px;border-radius:10px;
+      background:linear-gradient(135deg,var(--accent-2),var(--accent));
+      box-shadow:0 6px 18px rgba(11,18,35,0.12);
+      display:flex;align-items:center;justify-content:center;color:white;font-weight:700;
+      border:2px solid var(--gold);
+    }
+    .brand .name{font-size:16px;font-weight:600}
+
+    nav.links{display:flex;gap:14px;align-items:center}
+    nav.links a{
+      color:var(--muted); text-decoration:none; font-weight:600; font-size:14px;
+      padding:8px 10px; border-radius:8px; transition:all .18s ease;
+      border:1px solid transparent;
+    }
+    nav.links a:hover{ color:var(--accent); transform:translateY(-2px); border-color:var(--border) }
+
+    .actions{display:flex;gap:8px;align-items:center}
+
+    /* ---------- hero ---------- */
+    .hero{
+      padding:120px 24px 60px;
+      display:flex;align-items:center;justify-content:center;
+      text-align:center;
+      min-height:420px;
+      position:relative;
+      overflow:hidden;
+    }
+    .hero-inner{max-width:980px}
+    .hero-badge{
+      display:inline-block;padding:8px 12px;border-radius:999px;
+      background: linear-gradient(90deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+      color:var(--gold); font-weight:700; border:1px solid var(--gold); margin-bottom:18px;
+    }
+    .hero h1{font-size:42px;margin:6px 0 8px;letter-spacing:-0.02em}
+    .hero p.lead{font-size:18px;color:var(--muted);max-width:760px;margin:0 auto}
+
+    .typing {
+      display:inline-block;
+      border-right:2px solid var(--accent);
+      padding-right:6px;
+      margin-left:6px;
+      white-space:nowrap;
+    }
+
+    .hero-cta{margin-top:22px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+    .btn{
+      display:inline-flex;align-items:center;gap:8px;background:var(--accent);color:#fff;padding:10px 16px;border-radius:10px;border:1px solid rgba(255,255,255,0.06);font-weight:700;
+      box-shadow: 0 8px 24px rgba(11,18,35,0.08); cursor:pointer; text-decoration:none;
+      transition:transform .18s ease, box-shadow .18s ease, opacity .18s;
+    }
+    .btn.secondary{background:transparent;color:var(--accent);border:1px solid var(--border);font-weight:600}
+    .btn:hover{transform:translateY(-4px);}
+
+    /* floating accent shapes */
+    .shape {
+      position:absolute; border-radius:16px; filter:blur(36px); opacity:0.14;
+      transform:translateZ(0);
+    }
+    .shape.a{width:340px;height:340px;background:linear-gradient(90deg,var(--accent),var(--accent-2)); top:-80px; left:-120px;}
+    .shape.b{width:260px;height:260px;background:linear-gradient(90deg,var(--gold),#ffdca8); bottom:-60px; right:-80px; opacity:0.12}
+
+    /* ---------- container sections ---------- */
+    main{padding:24px; max-width:1100px;margin:0 auto}
+    section.card{
+      background:var(--card);
+      margin:36px 0; padding:28px; border-radius:14px;
+      border:1px solid var(--border); box-shadow: 0 12px 30px rgba(11,18,35,0.03);
+    }
+    section.card h2{margin:0 0 16px;font-size:24px;color:var(--accent-2);border-left:6px solid var(--gold);padding-left:12px}
+    .grid{display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+
+    /* cards */
+    .info-card{
+      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0));
+      padding:18px;border-radius:12px;border:1px solid var(--gold); /* gold border as requested */
+      display:flex;flex-direction:column;gap:8px;min-height:120px;
+      transition:transform .18s ease, box-shadow .18s;
+    }
+    .info-card:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(11,18,35,0.06)}
+    .info-card b{color:var(--text)}
+
+    /* projects */
+    .project{
+      display:flex;flex-direction:column;gap:12px;border-radius:12px;padding:14px;border:1px solid var(--border);
+      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0));
+    }
+    .project .meta{display:flex;gap:10px;align-items:center;justify-content:space-between}
+    .project-title{font-weight:700;color:var(--accent-2)}
+    .project p{color:var(--muted);margin:0}
+
+    .project-footer{display:flex;gap:10px;align-items:center}
+    .chip{padding:6px 10px;border-radius:999px;background:var(--glass);border:1px dashed var(--border);font-size:13px;color:var(--muted)}
+
+    /* view details button */
+    .view-btn{background:transparent;border:2px solid var(--accent);color:var(--accent);padding:8px 12px;border-radius:10px;font-weight:700;cursor:pointer}
+    .view-btn:hover{background:var(--accent);color:#fff}
+
+    /* contact list */
+    .contact-row{display:flex;gap:10px;align-items:center}
+    .contact-row a{color:var(--accent-2);font-weight:600}
+
+    /* footer */
+    footer.site-footer{text-align:center;padding:18px;margin-top:22px;color:var(--muted);font-size:14px}
+
+    /* modal */
+    .modal-backdrop{
+      position:fixed;inset:0;background:rgba(3,6,12,0.56);display:none;align-items:center;justify-content:center;padding:20px;z-index:2000;
+    }
+    .modal{
+      width:100%;max-width:720px;background:var(--card);border-radius:12px;padding:22px;border:1px solid var(--border);
+      box-shadow:0 30px 80px rgba(11,18,35,0.5);
+    }
+    .modal h3{margin:0 0 8px}
+    .modal p{color:var(--muted)}
+    .modal .close{float:right;background:transparent;border:0;font-size:20px;cursor:pointer;color:var(--muted)}
+
+    /* responsive */
+    @media (max-width:760px){
+      .hero h1{font-size:32px}
+      .logo{width:40px;height:40px}
+      header.navbar{padding:10px 14px}
+      .hero{padding:84px 14px 40px}
+    }
+  </style>
+</head>
+<body>
+  <!-- NAV -->
+  <header class="navbar" role="banner">
+    <div class="brand" aria-hidden="false">
+      <div class="logo" aria-hidden="true">R</div>
+      <div>
+        <div class="name">Ragavi V A</div>
+        <div style="font-size:12px;color:var(--muted)">BE - Computer Science</div>
+      </div>
+    </div>
+
+    <nav class="links" role="navigation" aria-label="Main navigation">
+      <a href="#about">About</a>
+      <a href="#education">Education</a>
+      <a href="#skills">Skills</a>
+      <a href="#projects">Projects</a>
+      <a href="#certifications">Certifications</a>
+      <a href="#contact">Contact</a>
+    </nav>
+
+    <div class="actions">
+      <button id="themeToggle" title="Toggle dark/light" style="background:transparent;border:1px solid var(--border);padding:8px;border-radius:10px;cursor:pointer">
+        <i class="ri-sun-line" style="color:var(--accent)"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero" role="main" aria-labelledby="hero-heading">
+    <div class="shape a" aria-hidden="true"></div>
+    <div class="shape b" aria-hidden="true"></div>
+
+    <div class="hero-inner">
+      <h1 id="hero-heading">Hi — I’m <span style="color:var(--accent-2)">Ragavi V A</span></h1>
+      <p class="lead">
+        BE Computer Science student at K. Ramakrishnan College of Engineering.
+        <span class="typing" id="typedArea" aria-live="polite"></span>
+      </p>
+<div class="hero-cta" role="group" aria-label="Hero actions">
+  <a class="btn secondary" href="#projects">
+    <i class="ri-briefcase-line"></i> Projects
+  </a>
+  <a class="btn secondary" href="#contact" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">
+    <i class="ri-mail-line"></i> Contact
+  </a>
+  <a class="btn secondary" href="https://github.com/RAGAVIASHOK21" target="_blank" rel="noopener">
+    <i class="ri-github-line"></i> GitHub
+  </a>
+  <a class="btn secondary" href="https://www.linkedin.com/in/ragavi-ashok-" target="_blank" rel="noopener">
+    <i class="ri-linkedin-box-line"></i> LinkedIn
+  </a>
+</div>
+
+
+          </div>
+  </section>
+
+  <!-- MAIN CONTENT -->
+  <main>
+    <!-- ABOUT -->
+    <section id="about" class="card" aria-labelledby="about-title">
+      <h2 id="about-title">About Me</h2>
+      <div style="display:flex;gap:20px;flex-wrap:wrap;align-items:center">
+        <div style="flex:1;min-width:280px">
+          <p style="margin-bottom:12px;color:var(--muted)">
+            I am <strong>Ragavi V A</strong>, a BE Computer Science student focused on Data Science and Web Application Development.
+            I enjoy building thoughtful, usable apps and learning applied machine learning techniques.
+          </p>
+          <ul style="color:var(--muted);margin-top:8px">
+            <li>Data analysis & visualization</li>
+            <li>Front-end & full-stack web development</li>
+            <li>Project-oriented problem solving</li>
+          </ul>
+        </div>
+
+        <div style="width:260px;min-width:220px">
+          <div class="info-card">
+            <div style="display:flex;align-items:center;gap:12px">
+              <div style="width:56px;height:56px;border-radius:10px;background:linear-gradient(135deg,var(--accent-2),var(--accent));color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700">R</div>
+              <div>
+                <div style="font-weight:700">Ragavi V A</div>
+                <div style="font-size:13px;color:var(--muted)">BE CSE • KRCE</div>
+              </div>
+            </div>
+            <div style="margin-top:10px;font-size:14px;color:var(--muted)">Open to internships and project collaborations. Fast learner and team-oriented.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EDUCATION -->
+    <section id="education" class="card" aria-labelledby="education-title">
+      <h2 id="education-title">Education</h2>
+      <div class="grid">
+        <div class="info-card">
+          <b>BE — Computer Science Engineering</b>
+          <div style="color:var(--muted)">K. Ramakrishnan College of Engineering (KRCE)</div>
+          <div style="margin-top:8px;color:var(--accent)">CGPA: 7.9*</div>
+        </div>
+        <div class="info-card">
+          <b>HSC</b>
+          <div style="color:var(--muted)">Dalmia Higher Secondary School</div>
+          <div style="margin-top:8px;color:var(--accent)">85%</div>
+        </div>
+        <div class="info-card">
+          <b>SSLC</b>
+          <div style="color:var(--muted)">Dalmia Higher Secondary School</div>
+          <div style="margin-top:8px;color:var(--accent)">100%</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills" class="card" aria-labelledby="skills-title">
+      <h2 id="skills-title">Skills</h2>
+      <div class="grid">
+        <div class="info-card">
+          <b>Programming</b>
+          <div style="color:var(--muted);margin-top:6px">Python, C</div>
+          <div style="margin-top:8px" class="chip">Algorithms • Data Structures</div>
+        </div>
+
+        <div class="info-card">
+          <b>Data & Libraries</b>
+          <div style="color:var(--muted);margin-top:6px">Pandas, NumPy, Matplotlib</div>
+          <div style="margin-top:8px" class="chip">Data Analysis • Visualization</div>
+        </div>
+
+        <div class="info-card">
+          <b>Database & Tools</b>
+          <div style="color:var(--muted);margin-top:6px">MySQL, Power BI, Canva</div>
+          <div style="margin-top:8px" class="chip">Reporting • Dashboards</div>
+        </div>
+
+        <div class="info-card">
+          <b>Soft Skills</b>
+          <div style="color:var(--muted);margin-top:6px">Communication, Teamwork, Creativity, Time Management</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects" class="card" aria-labelledby="projects-title">
+      <h2 id="projects-title">Projects</h2>
+
+      <div class="grid" id="projectGrid">
+        <!-- Project 1 -->
+        <article class="project" data-project-id="p1" aria-labelledby="p1-title">
+          <div class="meta">
+            <div>
+              <div id="p1-title" class="project-title">College Event Management System</div>
+              <div style="font-size:13px;color:var(--muted);margin-top:6px">PHP, MySQL, HTML/CSS</div>
+            </div>
+            <div class="chip">Admin Dashboard • Registration</div>
+          </div>
+          <p style="margin-top:6px;color:var(--muted)">A web application to manage college events: register participants, set limits, admin approvals, and feedback collection.</p>
+
+          <div class="project-footer">
+            <div style="display:flex;gap:8px;align-items:center">
+              <button class="view-btn" data-project="p1">View Details</button>
+                          </div>
+          </div>
+        </article>
+
+        <!-- Project 2 -->
+        <article class="project" data-project-id="p2" aria-labelledby="p2-title">
+          <div class="meta">
+            <div>
+              <div id="p2-title" class="project-title">Pharmacy Management System</div>
+              <div style="font-size:13px;color:var(--muted);margin-top:6px">Role-based • Inventory</div>
+            </div>
+            <div class="chip">Authentication • Stock Control</div>
+          </div>
+          <p style="margin-top:6px;color:var(--muted)">Secure role-based app to manage pharmacy operations — inventory, sales, and user roles.</p>
+
+          <div class="project-footer">
+            <div style="display:flex;gap:8px;align-items:center">
+              <button class="view-btn" data-project="p2">View Details</button>
+            </div>
+          </div>
+        </article>
+
+        <!-- Project 3 -->
+        <article class="project" data-project-id="p3" aria-labelledby="p3-title">
+          <div class="meta">
+            <div>
+              <div id="p3-title" class="project-title">Task Management App (Tkinter)</div>
+              <div style="font-size:13px;color:var(--muted);margin-top:6px">Python • SQLite</div>
+            </div>
+            <div class="chip">Desktop • Productivity</div>
+          </div>
+          <p style="margin-top:6px;color:var(--muted)">A desktop task manager built using Python Tkinter with persistent storage in SQLite.</p>
+
+          <div class="project-footer">
+            <div style="display:flex;gap:8px;align-items:center">
+              <button class="view-btn" data-project="p3">View Details</button>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- CERTIFICATIONS -->
+    <section id="certifications" class="card" aria-labelledby="certs-title">
+      <h2 id="certs-title">Certifications</h2>
+      <div class="grid">
+        <div class="info-card"><b>NPTEL</b><div style="color:var(--muted);margin-top:6px">Introduction to Internet of Things</div></div>
+        <div class="info-card"><b>NPTEL</b><div style="color:var(--muted);margin-top:6px">Cloud Computing</div></div>
+        <div class="info-card"><b>Guvi</b><div style="color:var(--muted);margin-top:6px">Generative AI & Python</div></div>
+        <div class="info-card"><b>Celonis Academy</b><div style="color:var(--muted);margin-top:6px">Process Mining</div></div>
+        <div class="info-card"><b>Value Added</b><div style="color:var(--muted);margin-top:6px">Power BI, Tableau</div></div>
+        <div class="info-card"><b>Litz Tech</b><div style="color:var(--muted);margin-top:6px">Internship — Software Development</div></div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="card" aria-labelledby="contact-title">
+      <h2 id="contact-title">Contact</h2>
+
+      <div style="display:grid;grid-template-columns:1fr 360px;gap:18px;align-items:start">
+        <div>
+          <p style="color:var(--muted);margin-bottom:12px">Feel free to reach out for internships, collaborations, or project feedback.</p>
+
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <div class="contact-row"><i class="ri-mail-line" style="font-size:18px;color:var(--accent)"></i><a href="mailto:ragaviashok2124@gmail.com">ragaviashok2124@gmail.com</a></div>
+            <div class="contact-row"><i class="ri-github-line" style="font-size:18px;color:var(--accent)"></i><a href="https://github.com/RAGAVIASHOK21" target="_blank">github.com/RAGAVIASHOK21</a></div>
+            <div class="contact-row"><i class="ri-linkedin-box-line" style="font-size:18px;color:var(--accent)"></i><a href="https://www.linkedin.com/in/ragavi-ashok-" target="_blank">linkedin.com/in/ragavi-ashok-</a></div>
+          </div>
+        </div>
+
+              </div>
+    </section>
+
+    <footer class="site-footer">
+      © 2025 Ragavi V A — KRCE
+    </footer>
+  </main>
+
+  <!-- Modal for Project Details -->
+  <div id="modalBackdrop" class="modal-backdrop" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal" role="document" aria-labelledby="modalTitle">
+      <button class="close" aria-label="Close modal" id="modalClose">&times;</button>
+      <h3 id="modalTitle">Project title</h3>
+      <p id="modalDesc">Long description goes here.</p>
+      <div style="margin-top:12px;display:flex;gap:8px;justify-content:flex-end">
+        <button id="modalClose2" class="btn secondary">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ====== Theme toggle (light/dark) ======
+    (function(){
+      const root = document.documentElement;
+      const tbtn = document.getElementById('themeToggle');
+      // initialise from localStorage
+      if(localStorage.getItem('site-theme') === 'dark'){
+        root.classList.add('dark');
+      }
+      tbtn.addEventListener('click', ()=>{
+        root.classList.toggle('dark');
+        const isDark = root.classList.contains('dark');
+        localStorage.setItem('site-theme', isDark ? 'dark' : 'light');
+      });
+    })();
+
+    // ====== Typing effect (simple) ======
+    (function(){
+      const lines = ['Data Science • Web Apps', 'Python • Pandas • NumPy', 'MySQL • Power BI • Projects'];
+      const el = document.getElementById('typedArea');
+      let i=0, j=0, forward=true, current='';
+      function tick(){
+        const line = lines[i];
+        if(forward){
+          current = line.slice(0, ++j);
+          el.textContent = current;
+          if(j === line.length){ forward=false; setTimeout(tick, 900); return; }
+        } else {
+          current = line.slice(0, --j);
+          el.textContent = current;
+          if(j === 0){ forward=true; i=(i+1)%lines.length; setTimeout(tick, 220); return; }
+        }
+        setTimeout(tick, forward ? 70 : 30);
+      }
+      tick();
+    })();
+
+    // ====== Modal for project details ======
+    (function(){
+      const projects = {
+        p1: {
+          title: 'College Event Management System',
+          desc: `Detailed description:
+- Built a PHP & MySQL web application for managing college events.
+- Features: admin dashboard to add events, participant registration with roll number check, event capacity limits, role-based login, and feedback system.
+- Includes server-side validation, prepared statements for security, and responsive UI for desktop/mobile.`
+        },
+        p2: {
+          title: 'Pharmacy Management System',
+          desc: `Detailed description:
+- Role-based web app for pharmacy operations.
+- Features: product inventory, sales recording, stock alerts, user authentication, and audit logs.
+- Designed with maintainable DB schema, and clear UX for cashier and admin roles.`
+        },
+        p3: {
+          title: 'Task Management App (Tkinter)',
+          desc: `Detailed description:
+- Desktop app built with Python and Tkinter, using SQLite for persistence.
+- Features: add/edit/delete tasks, set priority, filter by status, and local data storage for offline usage.`
+        }
+      };
+
+      const modalBackdrop = document.getElementById('modalBackdrop');
+      const modalTitle = document.getElementById('modalTitle');
+      const modalDesc = document.getElementById('modalDesc');
+      const modalClose = document.getElementById('modalClose');
+      const modalClose2 = document.getElementById('modalClose2');
+
+      function openModal(projId){
+        const p = projects[projId];
+        if(!p) return;
+        modalTitle.textContent = p.title;
+        // display description as multi-line
+        modalDesc.innerHTML = p.desc.replace(/\n/g, '<br>');
+        modalBackdrop.style.display = 'flex';
+        modalBackdrop.setAttribute('aria-hidden','false');
+      }
+      function closeModal(){
+        modalBackdrop.style.display = 'none';
+        modalBackdrop.setAttribute('aria-hidden','true');
+      }
+
+      document.querySelectorAll('.view-btn').forEach(btn=>{
+        btn.addEventListener('click', ()=> {
+          const pid = btn.getAttribute('data-project');
+          openModal(pid);
+        });
+      });
+
+      modalClose.addEventListener('click', closeModal);
+      modalClose2.addEventListener('click', closeModal);
+      modalBackdrop.addEventListener('click', (e)=>{ if(e.target === modalBackdrop) closeModal(); });
+
+      document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape') closeModal(); });
+    })();
+
+   
+
+    // optional: simple reveal of sections when in viewport
+    (function(){
+      const srElements = document.querySelectorAll('section.card');
+      const io = new IntersectionObserver((entries)=>{
+        entries.forEach(ent=>{
+          if(ent.isIntersecting) {
+            ent.target.style.transform = 'translateY(0)';
+            ent.target.style.opacity = '1';
+            io.unobserve(ent.target);
+          }
+        });
+      }, {threshold:0.12});
+      srElements.forEach(el=>{
+        el.style.transform = 'translateY(12px)';
+        el.style.opacity = '0';
+        el.style.transition = 'all 600ms cubic-bezier(.2,.9,.3,1)';
+        io.observe(el);
+      });
+    })();
+  </script>
+</body>
+</html>
